@@ -1,0 +1,42 @@
+# Environment & Secrets
+.env
+.env.local
+.env.production
+
+# Virtual Environment
+.venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+*.pyo
+
+# Database files
+*.db
+*.sqlite3
+
+# Logs & debug files
+*.log
+dbg.txt
+dbg2.txt
+schema_out.txt
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Compiled files
+*.egg-info/
+dist/
+build/
