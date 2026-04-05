@@ -1,5 +1,6 @@
 import os
-from flask import Flask, send_from_directory
+import logging
+from flask import Flask, send_from_directory, jsonify
 from .config import config
 from .extensions import db, jwt, cors
 
@@ -48,8 +49,21 @@ def create_app(config_name: str = "development") -> Flask:
             return send_from_directory(frontend_dir, path)
         return send_from_directory(frontend_dir, "index.html")
 
-    # ── Create tables ────────────────────────────────────────────────────
+    # ── Health check endpoint ─────────────────────────────────────────────
+    @app.route("/health")
+    def health_check():
+        return jsonify({"status": "ok", "message": "FinanceOS is running"}), 200
+
+    # ── Create tables (lazy — won't crash if DB not yet configured) ───────
     with app.app_context():
-        db.create_all()
+        try:
+            db.create_all()
+            app.logger.info("Database tables created/verified successfully.")
+        except Exception as e:
+            app.logger.error(
+                f"[STARTUP] Could not connect to database: {e}\n"
+                "Set DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME "
+                "environment variables and redeploy."
+            )
 
     return app
