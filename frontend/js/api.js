@@ -19,15 +19,25 @@ const API = (() => {
     return json;
   }
 
+  async function postForm(path, formData) {
+    const h = {};
+    if (token()) h['Authorization'] = 'Bearer ' + token();
+    const res = await fetch(BASE + path, { method: 'POST', headers: h, body: formData });
+    return res.json().catch(() => ({ success: false, error: 'Parse error' }));
+  }
+
   return {
     token,
     TOKEN_KEY,
     setToken(t) { localStorage.setItem(TOKEN_KEY, t); },
     clearToken() { localStorage.removeItem(TOKEN_KEY); },
-    get:  (path)       => request('GET',    path),
-    post: (path, body) => request('POST',   path, body),
-    put:  (path, body) => request('PUT',    path, body),
-    del:  (path)       => request('DELETE', path),
+    get:      (path)       => request('GET',    path),
+    post:     (path, body) => request('POST',   path, body),
+    put:      (path, body) => request('PUT',    path, body),
+    patch:    (path, body) => request('PATCH',  path, body),
+    del:      (path)       => request('DELETE', path),
+    delete:   (path)       => request('DELETE', path),  // alias
+    postForm,
     downloadUrl(path) {
       return `${BASE}${path}${path.includes('?') ? '&' : '?'}token=${token()}`;
     },

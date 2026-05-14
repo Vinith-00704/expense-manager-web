@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+node_modules/
+migrate_*.py
+tests/
+docs/

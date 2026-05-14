@@ -1,4 +1,11 @@
 import os
+from dotenv import load_dotenv
+
+# Load .env FIRST — before anything else reads os.environ
+# This ensures GEMINI_API_KEY and all other vars are always available,
+# regardless of whether VS Code's terminal env injection is enabled.
+load_dotenv(override=False)
+
 from app import create_app
 
 config_name = os.environ.get("FLASK_ENV", "development")

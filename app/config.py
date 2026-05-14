@@ -39,8 +39,16 @@ class ProductionConfig(Config):
     DEBUG = False
 
 
+class TestingConfig(Config):
+    TESTING = True
+    DEBUG = True
+    SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"
+    JWT_SECRET_KEY = "test-secret-key"
+
+
 config = {
     "development": DevelopmentConfig,
-    "production": ProductionConfig,
-    "default": DevelopmentConfig,
+    "production":  ProductionConfig,
+    "testing":     TestingConfig,
+    "default":     DevelopmentConfig,
 }

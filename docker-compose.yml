@@ -1,0 +1,55 @@
+version: "3.9"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: financeos_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${DB_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  flask_app:
+    build: .
+    container_name: financeos_app
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      FLASK_ENV: production
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      PASSWORD_PEPPER: ${PASSWORD_PEPPER}
+    expose:
+      - "5000"
+    volumes:
+      - ./frontend:/app/frontend:ro
+
+  nginx:
+    image: nginx:alpine
+    container_name: financeos_nginx
+    restart: unless-stopped
+    depends_on:
+      - flask_app
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./frontend:/var/www/frontend:ro
+
+volumes:
+  mysql_data:

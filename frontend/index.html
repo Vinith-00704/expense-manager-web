@@ -112,14 +112,21 @@
       </div>
     </div>
     <ul class="sidebar-nav">
-      <li><a href="#/dashboard"  class="nav-link" data-page="dashboard">[ HOME        ]</a></li>
-      <li><a href="#/expenses"   class="nav-link" data-page="expenses">[ EXPENSES    ]</a></li>
-      <li><a href="#/rooms"      class="nav-link" data-page="rooms">[ ROOMS       ]</a></li>
-      <li><a href="#/trips"      class="nav-link" data-page="trips">[ TRIPS       ]</a></li>
-      <li><a href="#/subscriptions" class="nav-link" data-page="subscriptions">[ SUBSCRIPTIONS]</a></li>
-      <li><a href="#/analytics"  class="nav-link" data-page="analytics">[ ANALYTICS   ]</a></li>
-      <li><a href="#/reports"    class="nav-link" data-page="reports">[ REPORTS     ]</a></li>
-      <li><a href="#/settings"   class="nav-link" data-page="settings">[ SETTINGS    ]</a></li>
+      <li><a href="#/dashboard"     class="nav-link" data-page="dashboard">[ HOME          ]</a></li>
+      <li><a href="#/expenses"      class="nav-link" data-page="expenses"> [ EXPENSES      ]</a></li>
+      <li><a href="#/imports"       class="nav-link" data-page="imports">  [ IMPORTS       ]</a></li>
+      <li><a href="#/budgets"       class="nav-link" data-page="budgets">  [ BUDGETS       ]</a></li>
+      <li><a href="#/goals"         class="nav-link" data-page="goals">    [ GOALS         ]</a></li>
+      <li><a href="#/rooms"         class="nav-link" data-page="rooms">    [ ROOMS         ]</a></li>
+      <li><a href="#/trips"         class="nav-link" data-page="trips">    [ TRIPS         ]</a></li>
+      <li><a href="#/subscriptions" class="nav-link" data-page="subscriptions">[ SUBSCRIPTIONS ]</a></li>
+      <li><a href="#/analytics"     class="nav-link" data-page="analytics">[ ANALYTICS     ]</a></li>
+      <li><a href="#/reports"       class="nav-link" data-page="reports">  [ REPORTS       ]</a></li>
+      <li style="position:relative">
+        <a href="#/device-sync" class="nav-link" data-page="device-sync"> [ DEVICE SYNC   ]</a>
+        <span id="sms-notify-badge" class="sms-notify-badge hidden">0</span>
+      </li>
+      <li><a href="#/settings"      class="nav-link" data-page="settings"> [ SETTINGS      ]</a></li>
     </ul>
     <button class="sidebar-signout" onclick="App.logout()">[ SIGN OUT ]</button>
   </nav>
@@ -144,6 +151,11 @@
     <div id="page-analytics"     class="page"></div>
     <div id="page-reports"       class="page"></div>
     <div id="page-settings"      class="page"></div>
+    <!-- New pages -->
+    <div id="page-imports"      class="page"></div>
+    <div id="page-goals"        class="page"></div>
+    <div id="page-budgets"      class="page"></div>
+    <div id="page-device-sync" class="page"></div>
   </main>
 
   <!-- Mobile Bottom Nav -->
@@ -159,9 +171,13 @@
   <div id="more-drawer" class="more-drawer hidden" onclick="App.closeDrawer(event)">
     <div class="drawer-content">
       <div class="drawer-handle"></div>
+      <a href="#/imports"       class="drawer-item" onclick="App.closeDrawer()">[ IMPORTS       ]</a>
+      <a href="#/budgets"       class="drawer-item" onclick="App.closeDrawer()">[ BUDGETS       ]</a>
+      <a href="#/goals"         class="drawer-item" onclick="App.closeDrawer()">[ GOALS         ]</a>
       <a href="#/subscriptions" class="drawer-item" onclick="App.closeDrawer()">[ SUBSCRIPTIONS ]</a>
       <a href="#/trips"         class="drawer-item" onclick="App.closeDrawer()">[ TRIPS         ]</a>
       <a href="#/reports"       class="drawer-item" onclick="App.closeDrawer()">[ REPORTS       ]</a>
+      <a href="#/device-sync"   class="drawer-item" onclick="App.closeDrawer()">[ DEVICE SYNC   ]</a>
       <a href="#/settings"      class="drawer-item" onclick="App.closeDrawer()">[ SETTINGS      ]</a>
       <button class="drawer-item drawer-signout" onclick="App.logout()">[ SIGN OUT      ]</button>
     </div>
@@ -183,15 +199,21 @@
 <div id="toast-container" class="toast-container"></div>
 
 <!-- Scripts -->
-<script src="/js/api.js"></script>
-<script src="/js/dashboard.js"></script>
-<script src="/js/expenses.js"></script>
-<script src="/js/subscriptions.js"></script>
-<script src="/js/rooms.js"></script>
-<script src="/js/trips.js"></script>
-<script src="/js/analytics.js"></script>
-<script src="/js/reports.js"></script>
-<script src="/js/settings.js"></script>
-<script src="/js/app.js"></script>
+<script src="/js/api.js?v=1.1"></script>
+<script src="/js/dashboard.js?v=1.1"></script>
+<script src="/js/expenses.js?v=1.1"></script>
+<script src="/js/subscriptions.js?v=1.1"></script>
+<script src="/js/rooms.js?v=1.1"></script>
+<script src="/js/trips.js?v=1.1"></script>
+<script src="/js/analytics.js?v=1.1"></script>
+<script src="/js/reports.js?v=1.1"></script>
+<script src="/js/settings.js?v=1.1"></script>
+<!-- New modules -->
+<script src="/js/imports.js?v=1.1"></script>
+<script src="/js/goals.js?v=1.1"></script>
+<script src="/js/budgets.js?v=1.1"></script>
+<script src="/js/device_sync.js?v=1.1"></script>
+<script src="/js/ai.js?v=1.1"></script>
+<script src="/js/app.js?v=1.1"></script>
 </body>
 </html>

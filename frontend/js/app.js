@@ -14,6 +14,11 @@ const App = (() => {
     analytics:     { title: 'Analytics',     mod: () => AnalyticsModule },
     reports:       { title: 'Reports',       mod: () => ReportsModule },
     settings:      { title: 'Settings',      mod: () => SettingsModule },
+    // New pages
+    imports:       { title: 'Import Center', mod: () => ({ init: () => Imports.render() }) },
+    goals:         { title: 'Goals',         mod: () => ({ init: () => Goals.render() }) },
+    budgets:       { title: 'Budgets',       mod: () => ({ init: () => Budgets.render() }) },
+    'device-sync': { title: 'Device Sync',   mod: () => ({ init: () => DeviceSync.render() }) },
   };
 
   async function boot() {
@@ -38,6 +43,8 @@ const App = (() => {
     document.getElementById('app').classList.remove('hidden');
     updateUserUI(user);
     route();
+    // Start SMS notification polling
+    if (typeof DeviceSync !== 'undefined') DeviceSync.startPolling();
   }
 
   function updateUserUI(u) {
@@ -146,8 +153,8 @@ const App = (() => {
 
   function togglePwd(id, btn) {
     const inp = document.getElementById(id);
-    if (inp.type === 'password') { inp.type = 'text'; btn.textContent = '🙈'; }
-    else { inp.type = 'password'; btn.textContent = '👁'; }
+    if (inp.type === 'password') { inp.type = 'text'; btn.textContent = '[hide]'; }
+    else { inp.type = 'password'; btn.textContent = '[show]'; }
   }
 
   /* ── MODAL ── */

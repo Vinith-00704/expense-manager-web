@@ -10,6 +10,7 @@ const DashboardModule = (() => {
         ${['income','expense','savings'].map(t=>`<div class="summary-card ${t} skeleton" style="height:100px"></div>`).join('')}
       </div>
       <div id="dash-alerts"></div>
+      <div class="card ai-widget-card" id="dash-ai-widget"></div>
       <div class="chart-grid">
         <div class="card chart-card"><h3>Savings Trend</h3><div class="chart-wrap"><canvas id="chart-savings"></canvas></div></div>
         <div class="card chart-card"><h3>This Month</h3><div class="chart-wrap"><canvas id="chart-category"></canvas></div></div>
@@ -35,6 +36,11 @@ const DashboardModule = (() => {
     renderAlerts(d.alerts);
     renderCharts(d.savings_history, d.category_breakdown);
     renderUpcoming(d.upcoming);
+
+    // Render AI health widget (non-blocking)
+    if (typeof AI !== 'undefined') {
+      AI.renderDashboardWidget('dash-ai-widget');
+    }
   }
 
   function renderSummary(s) {

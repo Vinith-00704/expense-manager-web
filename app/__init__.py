@@ -30,15 +30,33 @@ def create_app(config_name: str = "development") -> Flask:
     from .routes.trips import trips_bp
     from .routes.analytics import analytics_bp
     from .routes.reports import reports_bp
+    # Phase 1-16 additions
+    from .routes.imports     import imports_bp
+    from .routes.sms_sync    import sms_sync_bp
+    from .routes.devices     import devices_bp
+    from .routes.device_keys import device_keys_bp
+    from .routes.goals       import goals_bp
+    from .routes.budgets     import budgets_bp
+    from .routes.ocr         import ocr_bp
+    from .routes.ai_analysis import ai_bp
 
-    app.register_blueprint(auth_bp, url_prefix="/api/auth")
-    app.register_blueprint(expenses_bp, url_prefix="/api/expenses")
-    app.register_blueprint(dashboard_bp, url_prefix="/api/dashboard")
+    app.register_blueprint(auth_bp,          url_prefix="/api/auth")
+    app.register_blueprint(expenses_bp,      url_prefix="/api/expenses")
+    app.register_blueprint(dashboard_bp,     url_prefix="/api/dashboard")
     app.register_blueprint(subscriptions_bp, url_prefix="/api/subscriptions")
-    app.register_blueprint(rooms_bp, url_prefix="/api/rooms")
-    app.register_blueprint(trips_bp, url_prefix="/api/trips")
-    app.register_blueprint(analytics_bp, url_prefix="/api/analytics")
-    app.register_blueprint(reports_bp, url_prefix="/api/reports")
+    app.register_blueprint(rooms_bp,         url_prefix="/api/rooms")
+    app.register_blueprint(trips_bp,         url_prefix="/api/trips")
+    app.register_blueprint(analytics_bp,     url_prefix="/api/analytics")
+    app.register_blueprint(reports_bp,       url_prefix="/api/reports")
+    # New blueprints
+    app.register_blueprint(imports_bp,       url_prefix="/api/imports")
+    app.register_blueprint(sms_sync_bp,      url_prefix="/api/sms")
+    app.register_blueprint(devices_bp,       url_prefix="/api/devices")
+    app.register_blueprint(device_keys_bp,   url_prefix="/api/device-keys")
+    app.register_blueprint(goals_bp,         url_prefix="/api/goals")
+    app.register_blueprint(budgets_bp,       url_prefix="/api/budgets")
+    app.register_blueprint(ocr_bp,           url_prefix="/api/ocr")
+    app.register_blueprint(ai_bp,            url_prefix="/api/ai")
 
     # ── Frontend SPA catch-all ────────────────────────────────────────────
     @app.route("/", defaults={"path": ""})
